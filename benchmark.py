@@ -34,18 +34,31 @@ train_dataset = load_data('train.csv')
 # 2. Model A Training
 model_a = MiniTransformer(vocab_size=5, d_model=64, num_heads=4, ff_dim=128, num_layers=1)
 print("Starting Training for Model A...")
+start_time = time.time()
 trained_model_a = train_model(model_a, train_loader, val_loader)
+end_time = time.time()
+duration = (end_time - start_time) / 60
+print (f"Training Time for Model A: {duration:.2f} minutes")
 print(f"Model A Test Acc: {evaluate_test(trained_model_a, test_loader)}")
+
 
 # 3. Model B Training
 # Model B: 1 Head
 model_b = MiniTransformer(vocab_size=5, d_model=64, num_heads=1, ff_dim=128, num_layers=1)
 print("Starting Training for Model B...")
+start_time = time.time()
 trained_model_b = train_model(model_b, train_loader, val_loader, epochs=15)
+end_time = time.time()
+duration = (end_time - start_time) / 60
+print (f"Training Time for Model B: {duration:.2f} minutes")
 print(f"Model B Test Acc: {evaluate_test(trained_model_b, test_loader)}")
 
 # Model C: No Positional Encoding
 model_c = MiniTransformerNoPos(vocab_size=5, d_model=64, num_heads=4, ff_dim=128, num_layers=1)
 print("Starting Training for Model C...")
+start_time = time.time()
 trained_model_c = train_model(model_c, train_loader, val_loader, epochs=15)
+end_time = time.time()
+duration = (end_time - start_time) / 60
+print (f"Training Time for Model C: {duration:.2f} minutes")
 print(f"Model C Test Acc: {evaluate_test(trained_model_c, test_loader)}")
